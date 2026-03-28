@@ -1,2 +1,2 @@
 # RuStore-app-showcase
-Vk education
+VK Education: Implementation of a Project Task to Develop the RuStore App Storefront
