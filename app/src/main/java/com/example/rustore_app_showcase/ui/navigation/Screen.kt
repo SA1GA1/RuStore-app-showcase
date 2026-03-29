@@ -2,7 +2,7 @@ package com.example.rustore_app_showcase.ui.navigation
 
 sealed class Screen(val route: String) {
     object Onboarding : Screen("onboarding")
-    object Showcase : Screen("showcase") // витрина
+    object Showcase : Screen("showcase")
     object Categories : Screen("categories")
     object AppDetails : Screen("app_details/{appID}") {
         fun createRoute(appID : Int) = "app_details/${appID}"
