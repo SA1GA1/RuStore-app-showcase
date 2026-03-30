@@ -41,7 +41,9 @@ fun AppNavGraph (navController: NavHostController) {
         }
 
         composable(Screen.Showcase.route) {
-            ShowcaseScreen()
+            ShowcaseScreen(onAppClick = { appID ->
+                navController.navigate(Screen.AppDetails.createRoute(appID))
+            })
         }
 
         composable(Screen.Categories.route) {
