@@ -7,6 +7,5 @@ data class CategoryInfo(
     val title: String,
     val icon: Int,
     val appsCount: Int,
-    val apps: List<AppInfo>,
     val color: Color
 )

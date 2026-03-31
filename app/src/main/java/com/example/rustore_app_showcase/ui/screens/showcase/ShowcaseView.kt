@@ -1,21 +1,58 @@
 package com.example.rustore_app_showcase.ui.screens.showcase
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.rustore_app_showcase.ui.screens.components.AppCard
+import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.data.models.CategoryInfo
+import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
+import com.example.rustore_app_showcase.ui.screens.components.HorizontalAppSection
+import com.example.rustore_app_showcase.ui.screens.components.SectionHeader
+import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
+
 
 @Composable
 fun ShowcaseScreen(
     viewModel: ShowcaseViewModel = viewModel(),
     onAppClick: (Int) -> Unit
 ) {
+    // Подписываемся на данные из ViewModel
     val apps by viewModel.state.collectAsState()
+
+    // Вызываем чистую верстку
+    ShowcaseContent(
+        apps = apps,
+        onAppClick = onAppClick
+    )
+}
+
+
+@Composable
+fun ShowcaseContent(
+    apps: List<AppInfo>,
+    onAppClick: (Int) -> Unit
+) {
+
+    // FIXME: тестовые данные, удалить!
+    val categories = listOf(
+        CategoryInfo(1, "Игры", 0, 8420, Color(0xFFE3F2FD)),
+        CategoryInfo(2, "Покупки", 0, 512, Color(0xFFFFF3E0)),
+        CategoryInfo(3, "Развлечения", 0, 1890, Color(0xFFF3E5F5)),
+        CategoryInfo(4, "Финансы", 0, 1245, Color(0xFFE8F5E9))
+    )
 
     LazyColumn{
         item {
@@ -25,8 +62,93 @@ fun ShowcaseScreen(
             )
         }
 
-        items(apps) { app ->
-            AppCard(app, onClick = { onAppClick(app.id) }, onInstallClick = {})
+        item {
+            SectionHeader(
+                title = "Социальные сети",
+                description = "Будьте всегда на связи",
+                onClick = { }
+            )
+        }
+
+        // тестовая фильтрация
+        item {
+            val socialApps = apps.filter { it.category == "Социальные сети" }
+            HorizontalAppSection(apps = socialApps, onAppClick = onAppClick)
+        }
+
+        item {
+            SectionHeader(
+                title = "Популярные категории",
+                description = "Самое интересное",
+                onClick = { }
+            )
+        }
+
+        item {
+            Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Box(modifier = Modifier.weight(1f)) {
+                        CategoryCard(category = categories[0], onClick = {})
+                    }
+                    Box(modifier = Modifier.weight(1f)) {
+                        CategoryCard(category = categories[1], onClick = {})
+                    }
+                }
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Box(modifier = Modifier.weight(1f)) {
+                        CategoryCard(category = categories[2], onClick = {})
+                    }
+                    Box(modifier = Modifier.weight(1f)) {
+                        CategoryCard(category = categories[3], onClick = {})
+                    }
+                }
+            }
+        }
+
+
+        item {
+            SectionHeader(
+                title = "Эффективность",
+                description = "Работайте быстрее и умнее",
+                onClick = { }
+            )
+        }
+
+        // тоже тестовая проверка
+        item {
+            val toolApps = apps.filter { it.category == "Инструменты" || it.category == "Продуктивность" }
+            HorizontalAppSection(apps = toolApps, onAppClick = onAppClick)
         }
     }
 }
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ShowcasePreview() {
+    RuStoreappshowcaseTheme {
+        val mockApps = List(10) { index ->
+            AppInfo(
+                id = index,
+                title = if (index < 5) "Социалка $index" else "Инструмент $index",
+                shortDescription = "Описание $index",
+                fullDescription = "",
+                category = if (index < 5) "Социальные сети" else "Инструменты",
+                rating = 4.5,
+                ageRating = 12,
+                developerName = "Dev",
+                iconUrl = "",
+                screenshots = emptyList(),
+                isInstalled = false,
+                size = "10 MB",
+                lastVersion = "1.0",
+                lastVersionDescription = ""
+            )
+        }
+
+        ShowcaseContent(
+            apps = mockApps,
+            onAppClick = {}
+        )
+    }
+}
+
