@@ -1,6 +1,7 @@
 package com.example.rustore_app_showcase.ui.screens.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -18,10 +19,10 @@ fun HorizontalAppSection(
 ) {
     val chunkedApps = apps.chunked(3)
 
-    LazyRow {
+    LazyRow (contentPadding = PaddingValues(horizontal = 4.dp)) {
         items(chunkedApps) { columnApps ->
             Column(
-                modifier = Modifier.width(360.dp)
+                modifier = Modifier.width(330.dp)
             ) {
                 columnApps.forEach { app ->
                     AppCard(

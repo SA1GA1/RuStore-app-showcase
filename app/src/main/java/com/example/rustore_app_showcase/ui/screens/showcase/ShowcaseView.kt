@@ -2,9 +2,13 @@ package com.example.rustore_app_showcase.ui.screens.showcase
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -21,6 +26,7 @@ import com.example.rustore_app_showcase.data.models.CategoryInfo
 import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
 import com.example.rustore_app_showcase.ui.screens.components.HorizontalAppSection
 import com.example.rustore_app_showcase.ui.screens.components.SectionHeader
+import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
 
@@ -54,11 +60,20 @@ fun ShowcaseContent(
         CategoryInfo(4, "Финансы", 0, 1245, Color(0xFFE8F5E9))
     )
 
-    LazyColumn{
+    LazyColumn (
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+        contentPadding = PaddingValues(bottom = 16.dp)
+    ) {
         item {
             Text(
                 text = "RuStore",
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(horizontal = 16.dp),
+                fontWeight = FontWeight.Bold,
+                color = MainColor
             )
         }
 
@@ -72,8 +87,7 @@ fun ShowcaseContent(
 
         // тестовая фильтрация
         item {
-            val socialApps = apps.filter { it.category == "Социальные сети" }
-            HorizontalAppSection(apps = socialApps, onAppClick = onAppClick)
+            HorizontalAppSection(apps = apps, onAppClick = onAppClick)
         }
 
         item {
@@ -87,18 +101,18 @@ fun ShowcaseContent(
         item {
             Column(modifier = Modifier.padding(horizontal = 8.dp)) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box (modifier = Modifier.weight(1f)) {
                         CategoryCard(category = categories[0], onClick = {})
                     }
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box (modifier = Modifier.weight(1f)) {
                         CategoryCard(category = categories[1], onClick = {})
                     }
                 }
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box (modifier = Modifier.weight(1f)) {
                         CategoryCard(category = categories[2], onClick = {})
                     }
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box (modifier = Modifier.weight(1f)) {
                         CategoryCard(category = categories[3], onClick = {})
                     }
                 }
@@ -116,8 +130,7 @@ fun ShowcaseContent(
 
         // тоже тестовая проверка
         item {
-            val toolApps = apps.filter { it.category == "Инструменты" || it.category == "Продуктивность" }
-            HorizontalAppSection(apps = toolApps, onAppClick = onAppClick)
+            HorizontalAppSection(apps = apps, onAppClick = onAppClick)
         }
     }
 }

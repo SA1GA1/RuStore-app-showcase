@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rustore_app_showcase.data.models.CategoryInfo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -31,10 +32,11 @@ fun CategoryCard (
     category : CategoryInfo,
     onClick : () -> Unit
 ) {
+
     Card(
         modifier = Modifier
             .height(160.dp)
-            .width(160.dp)
+            .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() },
         colors = CardDefaults.cardColors(
@@ -42,14 +44,6 @@ fun CategoryCard (
         )
     ) {
 
-        // загрушка вместо иконки категории
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background), // загрушка вместо иконки приложения
-            contentDescription = "AppLogo",
-            modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .size(70.dp)
-        )
 
         Column(
             modifier = Modifier
@@ -57,20 +51,28 @@ fun CategoryCard (
                 .padding(8.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
+            // загрушка вместо иконки категории
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_background), // загрушка вместо иконки приложения
+                contentDescription = "AppLogo",
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .size(80.dp)
+            )
 
             Text(
                 text = category.title,
                 fontWeight = FontWeight.Bold,
                 color = Color.DarkGray,
+                fontSize = 20.sp
 
             )
             Text(
                 text = "${category.appsCount} приложений",
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray,
-                fontSize = 10.sp
-
-                )
+                fontSize = 12.sp
+            )
         }
     }
 }

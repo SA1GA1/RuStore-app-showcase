@@ -45,7 +45,7 @@ fun AppCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(80.dp)
             .clickable { onClick() }
             .padding(horizontal = 4.dp, vertical = 4.dp),
         colors = CardDefaults.cardColors(
