@@ -48,6 +48,8 @@ fun HorizontalAppSectionPreview() {
                 fullDescription = "",
                 category = "Категория",
                 rating = 4.5,
+                ratingCount = 1000,
+                ratingPlace = 1,
                 ageRating = 12,
                 developerName = "Developer",
                 iconUrl = "",

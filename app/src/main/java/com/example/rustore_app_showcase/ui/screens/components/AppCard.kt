@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -121,6 +120,8 @@ fun AppCardPreview() {
             fullDescription = "",
             category = "Социальные сети",
             rating = 4.8,
+            ratingCount = 1000,
+            ratingPlace = 1,
             ageRating = 12,
             developerName = "VK.com",
             iconUrl = "",

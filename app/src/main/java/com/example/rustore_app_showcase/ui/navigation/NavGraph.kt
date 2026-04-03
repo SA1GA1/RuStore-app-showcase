@@ -52,11 +52,17 @@ fun AppNavGraph (navController: NavHostController) {
 
         composable(
             Screen.AppDetails.route,
-            arguments = listOf(navArgument("appID") { type = NavType.IntType})) { backStackEntry ->
+            arguments = listOf(navArgument("appID") { type = NavType.IntType })
+        ) {
 
-            val appID = backStackEntry.arguments?.getInt("appID") ?: 0
-
-            AppDetailsScreen(appID)
+            AppDetailsScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onInstallClick = {
+                    println("Нажата кнопка установки")
+                }
+            )
         }
 
         composable(

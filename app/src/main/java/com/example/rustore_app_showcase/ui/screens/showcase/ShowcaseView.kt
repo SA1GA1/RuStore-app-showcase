@@ -147,6 +147,8 @@ fun ShowcasePreview() {
                 fullDescription = "",
                 category = if (index < 5) "Социальные сети" else "Инструменты",
                 rating = 4.5,
+                ratingCount = 100,
+                ratingPlace = 1,
                 ageRating = 12,
                 developerName = "Dev",
                 iconUrl = "",
