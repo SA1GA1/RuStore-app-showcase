@@ -1,6 +1,8 @@
 package com.example.rustore_app_showcase.ui.screens.appdetails
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -11,6 +13,8 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -40,6 +44,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.ui.screens.components.FeatureItem
+import com.example.rustore_app_showcase.ui.screens.components.infoRow
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
@@ -137,92 +143,128 @@ fun AppDetailsContent(
                 fontSize = 20.sp
             )
         }
-        
+
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
-                .padding(vertical = 16.dp, horizontal = 10.dp),
-            color = Color(0xFFEFEFEF),
+                .padding(vertical = 16.dp, horizontal = 16.dp), // Сделал отступы как на макете
+            color = Color(0xFFF6F6F6),
             shape = RoundedCornerShape(12.dp)
         ) {
-            // характеристики приложения
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // рейтинг
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "ОЦЕНКА",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
-                    Text(text = "${app.rating}", fontWeight = FontWeight.Bold)
-                    Text(
-                        text = "${app.ratingCount}",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
-                }
+                FeatureItem(
+                    label = "ОЦЕНКА",
+                    value = "${app.rating} ★",
+                    subValue = "${app.ratingCount}",
+                    modifier = Modifier.weight(1f)
+                )
 
-                VerticalDivider(modifier = Modifier.padding(horizontal = 3.dp) ,color = Color.LightGray, thickness = 1.dp)
+                VerticalDivider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
 
-                // размер
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "РАЗМЕР",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
-                    Text(text = "${app.size} MB", fontWeight = FontWeight.Bold)
-                }
+                FeatureItem(
+                    label = "РАЗМЕР",
+                    value = "${app.size} MB",
+                    modifier = Modifier.weight(1f)
+                )
 
-                VerticalDivider(modifier = Modifier.padding(horizontal = 3.dp) ,color = Color.LightGray, thickness = 1.dp)
+                VerticalDivider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
 
-                // возраст
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "ВОЗРАСТ",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
-                    Text(text = "${app.rating}+", fontWeight = FontWeight.Bold)
-                }
+                FeatureItem(
+                    label = "ВОЗРАСТ",
+                    value = "${app.ageRating}+",
+                    modifier = Modifier.weight(1f)
+                )
 
-                VerticalDivider(modifier = Modifier.padding(horizontal = 3.dp) ,color = Color.LightGray, thickness = 1.dp)
-
-                // место в категории
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "РЕЙТИНГ",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
-                    Text(text = "№${app.ratingPlace}", fontWeight = FontWeight.Bold)
-                    Text(
-                        text = app.category,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
+                VerticalDivider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
+                
+                FeatureItem(
+                    label = "РЕЙТИНГ",
+                    value = "№${app.ratingPlace}",
+                    subValue = app.category,
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
+
+        // скрины
+        LazyRow (
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(app.screenshots.size) { index ->
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = "Скриншот",
+                    modifier = Modifier
+                        .width(228.dp)
+                        .height(390.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { }, // FIXME:  логика открытия скрина
+                    contentScale = androidx.compose.ui.layout.ContentScale.Crop // расширение изображения до размера выделенного поля
+                )
+                
+            }
+        }
+
+        // раздел о приложении
+        Text(
+            text = "О приложении",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
+        )
+        Surface(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = Color(0xFFF6F6F6),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = app.fullDescription,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.DarkGray,
+                )
+            }
+        }
+
+        Text(
+            text = "Что нового",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
+        )
+        Surface(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = Color(0xFFF6F6F6),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                    Text(text = "Версия ${app.lastVersion}", fontWeight = FontWeight.Bold, color = Color.DarkGray)
+                Text(
+                    text = app.lastVersionDescription,
+                    modifier = Modifier.padding(top = 8.dp),
+                    color = Color.DarkGray,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+
+        Text(
+            text = "Информация",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
+        )
+        infoRow("Разработчик", app.developerName)
+        infoRow("Категория", app.category)
+        infoRow("Возрастной ценз", "${app.ageRating}+")
+        infoRow("Размер", "${app.size} MB")
+        infoRow("Версия", app.lastVersion)
     }
 }
 
@@ -242,7 +284,7 @@ fun AppDetailsPreview() {
             ageRating = 8,
             developerName = "Vk group",
             iconUrl = "",
-            screenshots = emptyList(),
+            screenshots = listOf("1", "2", "3"),
             isInstalled = false,
             size = "167",
             lastVersion = "23.7.3",
