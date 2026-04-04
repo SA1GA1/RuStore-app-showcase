@@ -73,7 +73,13 @@ fun AppNavGraph (navController: NavHostController) {
             val appID = backStackEntry.arguments?.getInt("appID") ?: 0
             val imageIndex = backStackEntry.arguments?.getInt("imageIndex") ?: 0
 
-            ScreenshotsScreen(appID, imageIndex)
+            ScreenshotsScreen(
+                appID,
+                imageIndex,
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
