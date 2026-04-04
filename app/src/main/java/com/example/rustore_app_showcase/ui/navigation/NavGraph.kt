@@ -47,7 +47,12 @@ fun AppNavGraph (navController: NavHostController) {
         }
 
         composable(Screen.Categories.route) {
-            CategoriesScreen()
+            CategoriesScreen(
+                onBackClick = { navController.popBackStack() },
+                onCategoryClick = { categoryName ->
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(

@@ -17,6 +17,8 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,8 +28,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
-import com.example.rustore_app_showcase.data.repository.AppRepository
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import kotlin.math.absoluteValue
@@ -36,11 +38,28 @@ import kotlin.math.absoluteValue
 fun ScreenshotsScreen(
     appID: Int,
     initialIndex: Int,
+    onBackClick: () -> Unit,
+    viewModel: ScreenshotsViewModel = viewModel()
+) {
+    val screenshots by viewModel.screenshots.collectAsState()
+
+    ScreenshotsContent(
+        screenshots = screenshots,
+        initialIndex = initialIndex,
+        onBackClick = onBackClick
+    )
+}
+@Composable
+fun ScreenshotsContent(
+    screenshots: List<String>,
+    initialIndex: Int,
     onBackClick: () -> Unit
 ) {
-    val repository = AppRepository()
-    val app = repository.getApps().find { it.id == appID }
-    val screenshots = app?.screenshots ?: emptyList()
+
+    if (screenshots.isEmpty()) {
+        Box(modifier = Modifier.fillMaxSize().background(Color.White))
+        return
+    }
 
     val pagerState = rememberPagerState(
         initialPage = initialIndex,
@@ -107,8 +126,8 @@ fun ScreenshotsScreen(
 @Composable
 fun ScrenshootsPreview() {
     RuStoreappshowcaseTheme {
-        ScreenshotsScreen(
-            appID = 1,
+        ScreenshotsContent(
+            screenshots = listOf("1", "2", "3"),
             initialIndex = 0,
             onBackClick = {}
         )
