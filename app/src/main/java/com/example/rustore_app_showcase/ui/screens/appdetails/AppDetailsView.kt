@@ -45,7 +45,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.data.models.AppInfo
 import com.example.rustore_app_showcase.ui.screens.components.FeatureItem
-import com.example.rustore_app_showcase.ui.screens.components.infoRow
+import com.example.rustore_app_showcase.ui.screens.components.InfoRow
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
@@ -260,11 +260,11 @@ fun AppDetailsContent(
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
         )
-        infoRow("Разработчик", app.developerName)
-        infoRow("Категория", app.category)
-        infoRow("Возрастной ценз", "${app.ageRating}+")
-        infoRow("Размер", "${app.size} MB")
-        infoRow("Версия", app.lastVersion)
+        InfoRow("Разработчик", app.developerName)
+        InfoRow("Категория", app.category)
+        InfoRow("Возрастной ценз", "${app.ageRating}+")
+        InfoRow("Размер", "${app.size} MB")
+        InfoRow("Версия", app.lastVersion)
     }
 }
 

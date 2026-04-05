@@ -150,4 +150,9 @@ class AppRepository {
             )
         )
     }
+
+    fun getAppsByCategory(category: String?): List<AppInfo> {
+        val allApps = getApps()
+        return if (category == null) allApps else allApps.filter { it.category == category }
+    }
 }

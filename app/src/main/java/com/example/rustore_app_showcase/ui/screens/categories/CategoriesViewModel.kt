@@ -24,7 +24,7 @@ class CategoriesViewModel : ViewModel() {
             CategoryInfo(3, "Покупки", 0, 512, Color(0xFFD7BFA3)),
             CategoryInfo(4, "Инструменты", 0, 3120, Color(0xFFAAD2D7)),
             CategoryInfo(5, "Образование", 0, 945, Color(0xFF747BA6)),
-            CategoryInfo(6, "Социальные", 0, 218, Color(0xFFEFE8A0)),
+            CategoryInfo(6, "Социальные сети", 0, 218, Color(0xFFEFE8A0)),
             CategoryInfo(7, "Развлечения", 0, 1890, Color(0xFFEFCBF5))
         )
     }

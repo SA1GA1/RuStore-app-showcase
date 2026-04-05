@@ -32,6 +32,7 @@ import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
 @Composable
 fun ShowcaseScreen(
+    selectedCategory: String?,
     viewModel: ShowcaseViewModel = viewModel(),
     onAppClick: (Int) -> Unit
 ) {

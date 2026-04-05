@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun infoRow (
+fun InfoRow (
     label: String,
     value: String
 ) {
