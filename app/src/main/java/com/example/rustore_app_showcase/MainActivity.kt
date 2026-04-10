@@ -55,8 +55,11 @@ class MainActivity : ComponentActivity() {
                                     onClick = {
                                         if (currentRoute != Screen.Showcase.route) {
                                             navController.navigate(Screen.Showcase.route) {
-                                                popUpTo(navController.graph.startDestinationId)
+                                                popUpTo(navController.graph.startDestinationId) {
+                                                    saveState = true
+                                                }
                                                 launchSingleTop = true
+                                                restoreState = true
                                             }
                                         }
                                     },
@@ -76,8 +79,11 @@ class MainActivity : ComponentActivity() {
                                     onClick = {
                                         if (currentRoute != Screen.Categories.route) {
                                             navController.navigate(Screen.Categories.route) {
-                                                popUpTo(navController.graph.startDestinationId)
+                                                popUpTo(navController.graph.startDestinationId) {
+                                                    saveState = true
+                                                }
                                                 launchSingleTop = true
+                                                restoreState = true
                                             }
                                         }
                                     },
