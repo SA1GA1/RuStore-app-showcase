@@ -1,5 +1,4 @@
 
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -65,6 +64,16 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    implementation(libs.kotlinx.serialization.json)
+
     // AppInfo и CategoryInfo
     implementation(project(":shared"))
+
+    // Retrofit + OkHttp
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.okhttp.logging)
+
+    // для изображений с Coil
+    implementation(libs.coil.compose)
 }
