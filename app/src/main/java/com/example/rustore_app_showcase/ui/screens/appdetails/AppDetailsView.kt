@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
-import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.ui.screens.components.FeatureItem
 import com.example.rustore_app_showcase.ui.screens.components.InfoRow
 import com.example.rustore_app_showcase.ui.theme.MainColor
@@ -55,7 +55,7 @@ fun AppDetailsScreen(
     onBackClick: () -> Unit,
     onInstallClick: () -> Unit
 ) {
-    val app by viewModel.state.collectAsState() // Используй viewModel.app (как мы писали в плане)
+    val app by viewModel.state.collectAsState()
 
     app?.let { currentApp ->
         AppDetailsContent(

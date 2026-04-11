@@ -1,6 +1,7 @@
 package com.example.rustore_app_showcase.data.repository
 
-import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.shared.AppInfo
+
 
 class AppRepository {
     fun getApps(): List<AppInfo> {

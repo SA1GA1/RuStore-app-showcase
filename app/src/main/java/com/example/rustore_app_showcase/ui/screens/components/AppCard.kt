@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rustore_app_showcase.R
-import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.ui.theme.LightBlue
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme

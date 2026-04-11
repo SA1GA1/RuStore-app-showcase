@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.rustore_app_showcase.data.models.CategoryInfo
+import com.example.rustore_app_showcase.shared.CategoryInfo
 import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
@@ -82,10 +82,10 @@ fun CategoriesContent(
 fun CategoriesPreview() {
     RuStoreappshowcaseTheme {
         val mockCategories = listOf(
-            CategoryInfo(1, "Финансы", 0, 1245, Color(0xFFE8F5E9)),
-            CategoryInfo(2, "Игры", 0, 8420, Color(0xFFE3F2FD)),
-            CategoryInfo(3, "Покупки", 0, 512, Color(0xFFFFF3E0)),
-            CategoryInfo(4, "Инструменты", 0, 3120, Color(0xFFE0F7FA))
+            CategoryInfo(1, "Финансы", 0, 1245, "0xFFE8F5E9"),
+            CategoryInfo(2, "Игры", 0, 8420, "0xFFE3F2FD"),
+            CategoryInfo(3, "Покупки", 0, 512, "0xFFFFF3E0"),
+            CategoryInfo(4, "Инструменты", 0, 3120, "0xFFE0F7FA")
         )
 
         CategoriesContent(

@@ -2,10 +2,11 @@ package com.example.rustore_app_showcase.ui.screens.appdetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.rustore_app_showcase.data.models.AppInfo
 import com.example.rustore_app_showcase.data.repository.AppRepository
+import com.example.rustore_app_showcase.shared.AppInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlin.collections.find
 
 class AppDetailsViewModel (
     savedStateHandle: SavedStateHandle,

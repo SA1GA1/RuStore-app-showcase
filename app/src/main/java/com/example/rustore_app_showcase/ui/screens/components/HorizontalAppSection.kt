@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.rustore_app_showcase.data.models.AppInfo
+import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 
 @Composable

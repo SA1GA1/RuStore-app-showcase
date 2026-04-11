@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "RuStore-app-showcase"
 include(":app")
+include(":backend")
+include(":shared")

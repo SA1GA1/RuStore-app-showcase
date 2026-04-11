@@ -1,5 +1,8 @@
-package com.example.rustore_app_showcase.data.models
+package com.example.rustore_app_showcase.shared
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AppInfo(
     val id: Int,
     val title: String,

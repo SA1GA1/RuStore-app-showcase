@@ -16,13 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.rustore_app_showcase.data.models.AppInfo
-import com.example.rustore_app_showcase.data.models.CategoryInfo
+import com.example.rustore_app_showcase.shared.AppInfo
+import com.example.rustore_app_showcase.shared.CategoryInfo
 import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
 import com.example.rustore_app_showcase.ui.screens.components.HorizontalAppSection
 import com.example.rustore_app_showcase.ui.screens.components.SectionHeader
@@ -55,10 +54,10 @@ fun ShowcaseContent(
 
     // FIXME: тестовые данные, удалить!
     val categories = listOf(
-        CategoryInfo(1, "Игры", 0, 8420, Color(0xFFE3F2FD)),
-        CategoryInfo(2, "Покупки", 0, 512, Color(0xFFFFF3E0)),
-        CategoryInfo(3, "Развлечения", 0, 1890, Color(0xFFF3E5F5)),
-        CategoryInfo(4, "Финансы", 0, 1245, Color(0xFFE8F5E9))
+        CategoryInfo(1, "Игры", 0, 8420, "0xFFE3F2FD"),
+        CategoryInfo(2, "Покупки", 0, 512, "0xFFFFF3E0"),
+        CategoryInfo(3, "Развлечения", 0, 1890, "0xFFF3E5F5"),
+        CategoryInfo(4, "Финансы", 0, 1245, "0xFFE8F5E9")
     )
 
     LazyColumn (
