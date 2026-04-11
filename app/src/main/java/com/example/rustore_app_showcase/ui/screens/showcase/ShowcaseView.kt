@@ -35,10 +35,8 @@ fun ShowcaseScreen(
     viewModel: ShowcaseViewModel = koinViewModel(),
     onAppClick: (Int) -> Unit
 ) {
-    // Подписываемся на данные из ViewModel
     val apps by viewModel.state.collectAsState()
 
-    // Вызываем чистую верстку
     ShowcaseContent(
         apps = apps,
         onAppClick = onAppClick

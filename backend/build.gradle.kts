@@ -19,4 +19,5 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.logback.classic)
     implementation(project(":shared"))
+    implementation(libs.ktor.server.host.common)
 }
