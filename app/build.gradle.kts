@@ -76,4 +76,8 @@ dependencies {
 
     // для изображений с Coil
     implementation(libs.coil.compose)
+
+    // DI
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 }

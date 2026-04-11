@@ -21,15 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.ui.theme.MainColor
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun OnboardingScreen(
     onContinueClick: () -> Unit,
-    viewModel: OnboardingViewModel = viewModel()
+    viewModel: OnboardingViewModel = koinViewModel()
 ) {
     Box(
         modifier = Modifier.fillMaxSize()

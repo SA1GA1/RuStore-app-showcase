@@ -2,13 +2,16 @@ package com.example.rustore_app_showcase.ui.screens.categories
 
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.rustore_app_showcase.data.repository.AppRepository
 import com.example.rustore_app_showcase.shared.CategoryInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class CategoriesViewModel : ViewModel() {
-    private val repository = AppRepository()
+class CategoriesViewModel(
+    private val repository: AppRepository
+) : ViewModel() {
 
     private val _categories = MutableStateFlow<List<CategoryInfo>>(emptyList())
     val categories = _categories.asStateFlow()
@@ -18,14 +21,8 @@ class CategoriesViewModel : ViewModel() {
     }
 
     private fun loadCategories() {
-        _categories.value = listOf(
-            CategoryInfo(1, "Финансы", 0, 1245, "0xFFD1F6D3"),
-            CategoryInfo(2, "Игры", 0, 8420, "0xFFA6D1EF"),
-            CategoryInfo(3, "Покупки", 0, 512, "0xFFD7BFA3"),
-            CategoryInfo(4, "Инструменты", 0, 3120, "0xFFAAD2D7"),
-            CategoryInfo(5, "Образование", 0, 945, "0xFF747BA6"),
-            CategoryInfo(6, "Социальные сети", 0, 218, "0xFFEFE8A0"),
-            CategoryInfo(7, "Развлечения", 0, 1890, "0xFFEFCBF5")
-        )
+        viewModelScope.launch {
+            _categories.value = repository.getCategories()
+        }
     }
 }

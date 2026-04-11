@@ -18,6 +18,7 @@ kotlinxSerialization = "1.11.0"
 retrofit = "3.0.0"
 okhttp = "5.3.2"
 retrofitSerializationConverter = "1.0.0"
+koin = "4.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,10 @@ retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "re
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 # для загрузки иконок по URL
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.7.0" }
+
+# DI
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

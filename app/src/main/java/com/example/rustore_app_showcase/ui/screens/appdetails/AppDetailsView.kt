@@ -41,17 +41,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.ui.screens.components.FeatureItem
 import com.example.rustore_app_showcase.ui.screens.components.InfoRow
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppDetailsScreen(
-    viewModel: AppDetailsViewModel = viewModel(),
+    viewModel: AppDetailsViewModel = koinViewModel(),
     onBackClick: () -> Unit,
     onInstallClick: () -> Unit
 ) {
@@ -196,7 +196,7 @@ fun AppDetailsContent(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(app.screenshots.size) { index ->
+            items(app.screenshots.size) { _ ->
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "Скриншот",

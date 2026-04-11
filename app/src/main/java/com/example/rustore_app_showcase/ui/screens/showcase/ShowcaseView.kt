@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.shared.CategoryInfo
 import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
@@ -27,12 +26,13 @@ import com.example.rustore_app_showcase.ui.screens.components.HorizontalAppSecti
 import com.example.rustore_app_showcase.ui.screens.components.SectionHeader
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun ShowcaseScreen(
     selectedCategory: String?,
-    viewModel: ShowcaseViewModel = viewModel(),
+    viewModel: ShowcaseViewModel = koinViewModel(),
     onAppClick: (Int) -> Unit
 ) {
     // Подписываемся на данные из ViewModel

@@ -28,10 +28,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
+import org.koin.androidx.compose.koinViewModel
 import kotlin.math.absoluteValue
 
 @Composable
@@ -39,7 +39,7 @@ fun ScreenshotsScreen(
     appID: Int,
     initialIndex: Int,
     onBackClick: () -> Unit,
-    viewModel: ScreenshotsViewModel = viewModel()
+    viewModel: ScreenshotsViewModel = koinViewModel()
 ) {
     val screenshots by viewModel.screenshots.collectAsState()
 
