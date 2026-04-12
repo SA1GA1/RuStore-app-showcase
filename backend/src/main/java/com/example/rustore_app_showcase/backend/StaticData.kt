@@ -231,34 +231,39 @@ val allCategories = listOf(
         title = "Финансы",
         appsCount = 0,
         icon = 0,
-        color = "0xFFD1F6D3"
+        color = "0xFFD1F6D3",
+        description = "Полный контроль ваших финансов"
     ),
     CategoryInfo(
         id = 2,
         title = "Инструменты",
         appsCount = 0,
         icon = 0,
-        color = "0xFFAAD2D7"
+        color = "0xFFAAD2D7",
+        description = "Упрости свои рутинные задачи"
     ),
     CategoryInfo(
         id = 3,
         title = "Государственные",
         appsCount = 0,
         icon = 0,
-        color = "0xFFEFE8A0"
+        color = "0xFFEFE8A0",
+        description = "Удобные сервисы для вас"
     ),
     CategoryInfo(
         id = 4,
         title = "Транспорт",
         appsCount = 0,
         icon = 0,
-        color = "0xFFD7BFA3"
+        color = "0xFFD7BFA3",
+        description = "Всегда будь в движении"
     ),
     CategoryInfo(
         id = 5,
         title = "Игры",
         appsCount = 0,
         icon = 0,
-        color = "0xFFA6D1EF"
+        color = "0xFFA6D1EF",
+        description = "Отвлекись от рутинных задач"
     )
 )

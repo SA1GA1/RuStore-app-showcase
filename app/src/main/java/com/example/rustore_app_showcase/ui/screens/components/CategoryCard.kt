@@ -86,7 +86,8 @@ fun CategoryCardPreview() {
                 title = "Игры",
                 color = "0xFFE3F2FD",
                 icon = 0, // Заглушка
-                appsCount = 10
+                appsCount = 10,
+                description = "Описание категории"
             ),
             onClick = {}
         )

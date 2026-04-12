@@ -21,13 +21,13 @@ import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 @Composable
 fun SectionHeader(
     title: String,
-    description: String,
+    description: String = "",
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(

@@ -1,15 +1,8 @@
 package com.example.rustore_app_showcase.ui.screens.showcase
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,147 +14,101 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.shared.CategoryInfo
-import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
+import com.example.rustore_app_showcase.ui.screens.components.AppCard
 import com.example.rustore_app_showcase.ui.screens.components.HorizontalAppSection
 import com.example.rustore_app_showcase.ui.screens.components.SectionHeader
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import org.koin.androidx.compose.koinViewModel
 
-
 @Composable
 fun ShowcaseScreen(
-    selectedCategory: String?,
     viewModel: ShowcaseViewModel = koinViewModel(),
-    onAppClick: (Int) -> Unit
+    onAppClick: (Int) -> Unit,
+    onCategoryClick: (String) -> Unit
 ) {
-    val apps by viewModel.state.collectAsState()
+    val apps by viewModel.appsState.collectAsState()
+    val categories by viewModel.categoriesState.collectAsState()
+    val selectedCategory = viewModel.selectedCategory
 
     ShowcaseContent(
+        selectedCategory = selectedCategory,
         apps = apps,
-        onAppClick = onAppClick
+        allCategories = categories,
+        onAppClick = onAppClick,
+        onCategoryClick = onCategoryClick
     )
 }
 
-
 @Composable
 fun ShowcaseContent(
+    selectedCategory: String?,
     apps: List<AppInfo>,
-    onAppClick: (Int) -> Unit
+    allCategories: List<CategoryInfo>, // Этот список приходит с бэкенда
+    onAppClick: (Int) -> Unit,
+    onCategoryClick: (String) -> Unit
 ) {
-
-    // FIXME: тестовые данные, удалить!
-    val categories = listOf(
-        CategoryInfo(1, "Игры", 0, 8420, "0xFFE3F2FD"),
-        CategoryInfo(2, "Покупки", 0, 512, "0xFFFFF3E0"),
-        CategoryInfo(3, "Развлечения", 0, 1890, "0xFFF3E5F5"),
-        CategoryInfo(4, "Финансы", 0, 1245, "0xFFE8F5E9")
-    )
-
-    LazyColumn (
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding(),
+            .statusBarsPadding(),
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         item {
             Text(
-                text = "RuStore",
+                text = selectedCategory ?: "RuStore",
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 fontWeight = FontWeight.Bold,
                 color = MainColor
             )
         }
 
-        item {
-            SectionHeader(
-                title = "Социальные сети",
-                description = "Будьте всегда на связи",
-                onClick = { }
-            )
-        }
+        if (selectedCategory != null) {
+            items(apps) { app ->
+                AppCard(app = app, onClick = { onAppClick(app.id) }, onInstallClick = {})
+            }
+        } else {
+            // Итерируемся по ВСЕМ категориям, полученным из репозитория
+            allCategories.forEach { category ->
+                val categoryApps = apps.filter { it.category == category.title }
 
-        // тестовая фильтрация
-        item {
-            HorizontalAppSection(apps = apps, onAppClick = onAppClick)
-        }
-
-        item {
-            SectionHeader(
-                title = "Популярные категории",
-                description = "Самое интересное",
-                onClick = { }
-            )
-        }
-
-        item {
-            Column(modifier = Modifier.padding(horizontal = 8.dp)) {
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Box (modifier = Modifier.weight(1f)) {
-                        CategoryCard(category = categories[0], onClick = {})
+                item {
+                    Column(modifier = Modifier.padding(top = 8.dp)) {
+                        SectionHeader(
+                            title = category.title,
+                            description = category.description, // Описание из StaticData
+                            onClick = { onCategoryClick(category.title) }
+                        )
+                        HorizontalAppSection(
+                            apps = categoryApps,
+                            onAppClick = onAppClick
+                        )
                     }
-                    Box (modifier = Modifier.weight(1f)) {
-                        CategoryCard(category = categories[1], onClick = {})
-                    }
-                }
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Box (modifier = Modifier.weight(1f)) {
-                        CategoryCard(category = categories[2], onClick = {})
-                    }
-                    Box (modifier = Modifier.weight(1f)) {
-                        CategoryCard(category = categories[3], onClick = {})
-                    }
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
-
-
-        item {
-            SectionHeader(
-                title = "Эффективность",
-                description = "Работайте быстрее и умнее",
-                onClick = { }
-            )
-        }
-
-        // тоже тестовая проверка
-        item {
-            HorizontalAppSection(apps = apps, onAppClick = onAppClick)
-        }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun ShowcasePreview() {
     RuStoreappshowcaseTheme {
-        val mockApps = List(10) { index ->
-            AppInfo(
-                id = index,
-                title = if (index < 5) "Социалка $index" else "Инструмент $index",
-                shortDescription = "Описание $index",
-                fullDescription = "",
-                category = if (index < 5) "Социальные сети" else "Инструменты",
-                rating = 4.5,
-                ratingCount = 100,
-                ratingPlace = 1,
-                ageRating = 12,
-                developerName = "Dev",
-                iconUrl = "",
-                screenshots = emptyList(),
-                isInstalled = false,
-                size = "10 MB",
-                lastVersion = "1.0",
-                lastVersionDescription = ""
-            )
-        }
-
         ShowcaseContent(
-            apps = mockApps,
-            onAppClick = {}
+            selectedCategory = null,
+            apps = listOf(
+                AppInfo(1, "Сбер", "Финансы", "Описание", "Финансы", 4.8, 100, 1, 6, "Sber", "", emptyList(), false, "200MB", "1.0", ""),
+                AppInfo(2, "ВК", "Соцсеть", "Описание", "Инструменты", 4.5, 200, 2, 12, "VK", "", emptyList(), false, "150MB", "1.0", "")
+            ),
+            // ДОБАВЛЯЕМ ЭТОТ ПАРАМЕТР:
+            allCategories = listOf(
+                CategoryInfo(1, "Финансы", "Описание финансов", 0, 0, "0xFFD1F6D3"),
+                CategoryInfo(2, "Инструменты", "Полезные утилиты", 0, 0, "0xFFAAD2D7"),
+            ),
+            onAppClick = {},
+            onCategoryClick = {}
         )
     }
 }
-

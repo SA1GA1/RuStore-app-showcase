@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class CategoryInfo(
     val id: Int,
     val title: String,
+    val description: String,
     val icon: Int,
     val appsCount: Int,
     val color: String

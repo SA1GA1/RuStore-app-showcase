@@ -41,7 +41,7 @@ fun AppNavGraph (navController: NavHostController) {
         }
 
         composable(
-            route = "showcase?category={categoryName}", // Используй константу, если она есть
+            route = "showcase?categoryName={categoryName}",
             arguments = listOf(
                 navArgument("categoryName") {
                     type = NavType.StringType
@@ -49,13 +49,13 @@ fun AppNavGraph (navController: NavHostController) {
                     defaultValue = null
                 }
             )
-        ) { backStackEntry ->
-            val categoryName = backStackEntry.arguments?.getString("categoryName")
-
+        ) {
             ShowcaseScreen(
-                selectedCategory = categoryName, // Передаем категорию в экран
                 onAppClick = { appID ->
                     navController.navigate(Screen.AppDetails.createRoute(appID))
+                },
+                onCategoryClick = { categoryName ->
+                    navController.navigate("showcase?categoryName=$categoryName")
                 }
             )
         }
@@ -64,7 +64,7 @@ fun AppNavGraph (navController: NavHostController) {
             CategoriesScreen(
                 onCategoryClick = { categoryName ->
                     // Вместо popBackStack навигируемся на витрину с фильтром
-                    navController.navigate("showcase?category=$categoryName")
+                    navController.navigate("showcase?categoryName=$categoryName")
                 }
             )
         }

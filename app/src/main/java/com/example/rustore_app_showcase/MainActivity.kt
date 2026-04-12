@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        AppNavGraph(navController)
+                        AppNavGraph(navController = navController)
                     }
                 }
             }
