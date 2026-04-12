@@ -219,7 +219,9 @@ fun AppDetailsContent(
             modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
         )
         Surface(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
             color = Color(0xFFF6F6F6),
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -239,7 +241,9 @@ fun AppDetailsContent(
             modifier = Modifier.padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 8.dp)
         )
         Surface(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
             color = Color(0xFFF6F6F6),
             shape = RoundedCornerShape(12.dp)
         ) {

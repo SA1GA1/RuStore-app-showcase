@@ -10,10 +10,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.rustore_app_showcase.shared.CategoryInfo
 import com.example.rustore_app_showcase.ui.screens.components.CategoryCard
+import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -39,16 +41,15 @@ fun CategoriesContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF8F9FA))
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
 
         Text(
             text = "Категории",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .statusBarsPadding()
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(horizontal = 16.dp),
+            fontWeight = FontWeight.Bold,
 
         )
 
