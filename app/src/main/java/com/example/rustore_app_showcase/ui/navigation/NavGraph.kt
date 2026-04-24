@@ -75,11 +75,15 @@ fun AppNavGraph (navController: NavHostController) {
         composable(
             Screen.AppDetails.route,
             arguments = listOf(navArgument("appID") { type = NavType.IntType })
-        ) {
+        ) { backStackEntry ->
+            val appID = backStackEntry.arguments?.getInt("appID") ?: 0
 
             AppDetailsScreen(
                 onBackClick = {
                     navController.popBackStack()
+                },
+                onScreenshotClick = { screenshotIndex ->
+                    navController.navigate(Screen.Screenshots.createRoute(appID, screenshotIndex))
                 },
                 onInstallClick = {
                     println("Нажата кнопка установки")

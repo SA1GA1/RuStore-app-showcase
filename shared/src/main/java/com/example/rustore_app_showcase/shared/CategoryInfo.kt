@@ -9,5 +9,6 @@ data class CategoryInfo(
     val description: String,
     val icon: Int,
     val appsCount: Int,
-    val color: String
+    val color: String,
+    val iconUrl: String = ""
 )

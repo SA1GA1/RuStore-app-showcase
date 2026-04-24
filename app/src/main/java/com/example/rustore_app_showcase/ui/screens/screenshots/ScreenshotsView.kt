@@ -1,7 +1,7 @@
 package com.example.rustore_app_showcase.ui.screens.screenshots
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import coil.compose.AsyncImage
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,10 +25,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import org.koin.androidx.compose.koinViewModel
@@ -90,8 +88,8 @@ fun ScreenshotsContent(
                         scaleY = 1f - (pageOffset * 0.1f)
                     }
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background), // Заглушка
+                AsyncImage(
+                    model = screenshots[pageIndex],
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -99,7 +97,7 @@ fun ScreenshotsContent(
                         .border(
                             width = 2.dp,
                             color = Color.LightGray.copy(alpha = 0.5f),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+                            shape = RoundedCornerShape(24.dp)
                         ),
                     contentScale = ContentScale.Crop
                 )

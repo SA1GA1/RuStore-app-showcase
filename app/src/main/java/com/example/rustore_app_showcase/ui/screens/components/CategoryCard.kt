@@ -1,7 +1,7 @@
 package com.example.rustore_app_showcase.ui.screens.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import coil.compose.AsyncImage
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,11 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.shared.CategoryInfo
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import com.example.rustore_app_showcase.ui.utils.toComposeColor
@@ -51,13 +50,13 @@ fun CategoryCard (
                 .padding(8.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            // загрушка вместо иконки категории
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background), // загрушка вместо иконки приложения
-                contentDescription = "AppLogo",
+            AsyncImage(
+                model = category.iconUrl,
+                contentDescription = "Иконка категории",
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
-                    .size(80.dp)
+                    .size(80.dp),
+                contentScale = ContentScale.Crop
             )
 
             Text(

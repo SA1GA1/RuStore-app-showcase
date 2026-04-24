@@ -1,8 +1,9 @@
 package com.example.rustore_app_showcase.ui.screens.appdetails
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import coil.compose.AsyncImage
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -35,13 +37,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.rustore_app_showcase.R
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.ui.screens.components.FeatureItem
 import com.example.rustore_app_showcase.ui.screens.components.InfoRow
@@ -53,14 +54,25 @@ import org.koin.androidx.compose.koinViewModel
 fun AppDetailsScreen(
     viewModel: AppDetailsViewModel = koinViewModel(),
     onBackClick: () -> Unit,
+    onScreenshotClick: (Int) -> Unit,
     onInstallClick: () -> Unit
 ) {
     val app by viewModel.state.collectAsState()
 
-    app?.let { currentApp ->
+    if (app == null) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(color = MainColor)
+        }
+    } else {
         AppDetailsContent(
-            app = currentApp,
+            app = app!!,
             onBackClick = onBackClick,
+            onScreenshotClick = onScreenshotClick,
             onInstallClick = onInstallClick
         )
     }
@@ -69,6 +81,7 @@ fun AppDetailsScreen(
 fun AppDetailsContent(
     app: AppInfo,
     onBackClick: () -> Unit,
+    onScreenshotClick: (Int) -> Unit,
     onInstallClick: () -> Unit
 ) {
     Column (
@@ -93,12 +106,13 @@ fun AppDetailsContent(
         Row (
             modifier = Modifier.padding(16.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background), // загрушка вместо иконки приложения
+            AsyncImage(
+                model = app.iconUrl,
                 contentDescription = "AppLogo",
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-                    .size(99.dp)
+                    .size(99.dp),
+                contentScale = ContentScale.Crop
             )
 
             Column(
@@ -192,22 +206,21 @@ fun AppDetailsContent(
         }
 
         // скрины
-        LazyRow (
+        LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(app.screenshots.size) { _ ->
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+            items(app.screenshots.size) { index ->
+                AsyncImage(
+                    model = app.screenshots[index],
                     contentDescription = "Скриншот",
                     modifier = Modifier
                         .width(228.dp)
                         .height(390.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .clickable { }, // FIXME:  логика открытия скрина
-                    contentScale = androidx.compose.ui.layout.ContentScale.Crop // расширение изображения до размера выделенного поля
+                        .clickable { onScreenshotClick(index) },
+                    contentScale = ContentScale.Crop
                 )
-                
             }
         }
 
@@ -298,6 +311,7 @@ fun AppDetailsPreview() {
         AppDetailsContent(
             app = mockApp,
             onBackClick = {},
+            onScreenshotClick = {},
             onInstallClick = {}
         )
     }

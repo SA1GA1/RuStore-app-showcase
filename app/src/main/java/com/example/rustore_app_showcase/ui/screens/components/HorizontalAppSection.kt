@@ -2,6 +2,7 @@ package com.example.rustore_app_showcase.ui.screens.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -17,19 +18,28 @@ fun HorizontalAppSection(
     apps: List<AppInfo>,
     onAppClick: (Int) -> Unit
 ) {
-    val chunkedApps = apps.chunked(3)
-
-    LazyRow (contentPadding = PaddingValues(horizontal = 4.dp)) {
-        items(chunkedApps) { columnApps ->
-            Column(
-                modifier = Modifier.width(330.dp)
-            ) {
-                columnApps.forEach { app ->
-                    AppCard(
-                        app = app,
-                        onClick = { onAppClick(app.id) },
-                        onInstallClick = { }
-                    )
+    if (apps.size <= 3) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            apps.forEach { app ->
+                AppCard(
+                    app = app,
+                    onClick = { onAppClick(app.id) },
+                    onInstallClick = { }
+                )
+            }
+        }
+    } else {
+        val chunkedApps = apps.chunked(3)
+        LazyRow(contentPadding = PaddingValues(horizontal = 4.dp)) {
+            items(chunkedApps) { columnApps ->
+                Column(modifier = Modifier.width(330.dp)) {
+                    columnApps.forEach { app ->
+                        AppCard(
+                            app = app,
+                            onClick = { onAppClick(app.id) },
+                            onInstallClick = { }
+                        )
+                    }
                 }
             }
         }

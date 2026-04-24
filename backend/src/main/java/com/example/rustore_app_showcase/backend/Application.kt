@@ -2,16 +2,20 @@ package com.example.rustore_app_showcase.backend
 
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.shared.CategoryInfo
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.engine.*import io.ktor.server.netty.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
 import io.ktor.server.http.content.*
+import java.awt.Color
 
 fun main() {
+    System.setProperty("java.awt.headless", "true")
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
         module()
     }.start(wait = true)
@@ -62,8 +66,46 @@ fun Application.module() {
             if (app != null) {
                 call.respond(app)
             } else {
-                call.respondText("App not found", status = io.ktor.http.HttpStatusCode.NotFound)
+                call.respondText("App not found", status = HttpStatusCode.NotFound)
             }
+        }
+
+        // иконка категории — генерируется динамически
+        get("/category-icons/{categoryId}") {
+            val categoryId = call.parameters["categoryId"]?.toIntOrNull()
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val category = allCategories.find { it.id == categoryId }
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val color = parseArgbColor(category.color)
+            val letter = category.title.first().toString()
+            call.respondBytes(generateCategoryIconPng(letter, color), contentType = ContentType.Image.PNG)
+        }
+
+        // иконка приложения — генерируется динамически
+        get("/icons/{appId}") {
+            val appId = call.parameters["appId"]?.toIntOrNull()
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val app = repository.getApps().find { it.id == appId }
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val category = allCategories.find { it.title == app.category }
+            val color = category?.let { parseArgbColor(it.color) } ?: Color(210, 210, 210)
+            val letter = app.title.first().toString()
+            call.respondBytes(generateIconPng(letter, color), contentType = ContentType.Image.PNG)
+        }
+
+        // скриншот приложения — генерируется динамически
+        get("/screenshots/{appId}/{index}") {
+            val appId = call.parameters["appId"]?.toIntOrNull()
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val index = call.parameters["index"]?.toIntOrNull() ?: 0
+            val app = repository.getApps().find { it.id == appId }
+                ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+            val category = allCategories.find { it.title == app.category }
+            val color = category?.let { parseArgbColor(it.color) } ?: Color(210, 210, 210)
+            call.respondBytes(
+                generateScreenshotPng(app.title, app.category, color, index),
+                contentType = ContentType.Image.PNG
+            )
         }
     }
 }
