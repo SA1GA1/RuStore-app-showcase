@@ -56,6 +56,9 @@ fun AppNavGraph (navController: NavHostController) {
                 },
                 onCategoryClick = { categoryName ->
                     navController.navigate("showcase?categoryName=$categoryName")
+                },
+                onBackClick = {
+                    navController.popBackStack()
                 }
             )
         }

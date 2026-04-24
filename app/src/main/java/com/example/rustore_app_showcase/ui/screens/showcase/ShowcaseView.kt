@@ -1,13 +1,23 @@
 package com.example.rustore_app_showcase.ui.screens.showcase
 
+// добавить тестовые скриншоты и тестовые иконки
+// реализовать установку через PackageInstaller
+
+
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,7 +35,8 @@ import org.koin.androidx.compose.koinViewModel
 fun ShowcaseScreen(
     viewModel: ShowcaseViewModel = koinViewModel(),
     onAppClick: (Int) -> Unit,
-    onCategoryClick: (String) -> Unit
+    onCategoryClick: (String) -> Unit,
+    onBackClick: () -> Unit
 ) {
     val apps by viewModel.appsState.collectAsState()
     val categories by viewModel.categoriesState.collectAsState()
@@ -36,7 +47,8 @@ fun ShowcaseScreen(
         apps = apps,
         allCategories = categories,
         onAppClick = onAppClick,
-        onCategoryClick = onCategoryClick
+        onCategoryClick = onCategoryClick,
+        onBackClick = onBackClick
     )
 }
 
@@ -44,9 +56,10 @@ fun ShowcaseScreen(
 fun ShowcaseContent(
     selectedCategory: String?,
     apps: List<AppInfo>,
-    allCategories: List<CategoryInfo>, // Этот список приходит с бэкенда
+    allCategories: List<CategoryInfo>,
     onAppClick: (Int) -> Unit,
-    onCategoryClick: (String) -> Unit
+    onCategoryClick: (String) -> Unit,
+    onBackClick: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -55,13 +68,33 @@ fun ShowcaseContent(
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         item {
-            Text(
-                text = selectedCategory ?: "RuStore",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                fontWeight = FontWeight.Bold,
-                color = MainColor
-            )
+            if (selectedCategory != null) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(end = 16.dp, bottom = 4.dp)
+                ) {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Назад"
+                        )
+                    }
+                    Text(
+                        text = selectedCategory,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MainColor
+                    )
+                }
+            } else {
+                Text(
+                    text = "RuStore",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                    fontWeight = FontWeight.Bold,
+                    color = MainColor
+                )
+            }
         }
 
         if (selectedCategory != null) {
@@ -108,7 +141,8 @@ fun ShowcasePreview() {
                 CategoryInfo(2, "Инструменты", "Полезные утилиты", 0, 0, "0xFFAAD2D7"),
             ),
             onAppClick = {},
-            onCategoryClick = {}
+            onCategoryClick = {},
+            onBackClick = {}
         )
     }
 }
