@@ -6,6 +6,7 @@ import com.example.rustore_app_showcase.shared.CategoryInfo
 private fun iconUrl(appId: Int) = "http://10.0.2.2:8080/icons/$appId"
 private fun screenshots(appId: Int, count: Int) = List(count) { i -> "http://10.0.2.2:8080/screenshots/$appId/$i" }
 private fun categoryIconUrl(categoryId: Int) = "http://10.0.2.2:8080/category-icons/$categoryId"
+private fun apkUrl(appId: Int) = "http://10.0.2.2:8080/apk/$appId"
 
 val allApps = listOf(
     AppInfo(
@@ -24,7 +25,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "210 МБ",
         lastVersion = "15.1",
-        lastVersionDescription = "Новый дизайн"
+        lastVersionDescription = "Новый дизайн",
+        apkUrl = apkUrl(1)
     ),
     AppInfo(
         id = 2,
@@ -42,7 +44,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "190 МБ",
         lastVersion = "6.12",
-        lastVersionDescription = "Улучшена стабильность"
+        lastVersionDescription = "Улучшена стабильность",
+        apkUrl = apkUrl(2)
     ),
     AppInfo(
         id = 3,
@@ -60,7 +63,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "180 МБ",
         lastVersion = "14.0",
-        lastVersionDescription = "Обновление безопасности"
+        lastVersionDescription = "Обновление безопасности",
+        apkUrl = apkUrl(3)
     ),
     AppInfo(
         id = 4,
@@ -78,7 +82,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "95 МБ",
         lastVersion = "24.1",
-        lastVersionDescription = "Умный поиск"
+        lastVersionDescription = "Умный поиск",
+        apkUrl = apkUrl(4)
     ),
     AppInfo(
         id = 5,
@@ -96,14 +101,15 @@ val allApps = listOf(
         isInstalled = false,
         size = "70 МБ",
         lastVersion = "12.5",
-        lastVersionDescription = "Тёмная тема"
+        lastVersionDescription = "Тёмная тема",
+        apkUrl = apkUrl(5)
     ),
     AppInfo(
         id = 6,
         title = "Госуслуги",
         shortDescription = "Гос. сервисы",
         fullDescription = "Запись к врачу, штрафы и документы в одном месте.",
-        category = "Государственные",
+        category = "Государство",
         rating = 4.6,
         ratingCount = 9000,
         ratingPlace = 1,
@@ -114,14 +120,15 @@ val allApps = listOf(
         isInstalled = false,
         size = "88 МБ",
         lastVersion = "5.0",
-        lastVersionDescription = "Новые уведомления"
+        lastVersionDescription = "Новые уведомления",
+        apkUrl = apkUrl(6)
     ),
     AppInfo(
         id = 7,
         title = "Мой налог",
         shortDescription = "Для самозанятых",
         fullDescription = "Официальное приложение ФНС России.",
-        category = "Государственные",
+        category = "Государство",
         rating = 4.8,
         ratingCount = 2000,
         ratingPlace = 2,
@@ -132,7 +139,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "45 МБ",
         lastVersion = "2.3",
-        lastVersionDescription = "Чеки по QR"
+        lastVersionDescription = "Чеки по QR",
+        apkUrl = apkUrl(7)
     ),
     AppInfo(
         id = 8,
@@ -150,7 +158,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "115 МБ",
         lastVersion = "4.90",
-        lastVersionDescription = "Улучшена навигация"
+        lastVersionDescription = "Улучшена навигация",
+        apkUrl = apkUrl(8)
     ),
     AppInfo(
         id = 9,
@@ -168,7 +177,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "155 МБ",
         lastVersion = "11.2",
-        lastVersionDescription = "Схемы этажей"
+        lastVersionDescription = "Схемы этажей",
+        apkUrl = apkUrl(9)
     ),
     AppInfo(
         id = 10,
@@ -186,7 +196,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "140 МБ",
         lastVersion = "12.0",
-        lastVersionDescription = "3D-здания"
+        lastVersionDescription = "3D-здания",
+        apkUrl = apkUrl(10)
     ),
     AppInfo(
         id = 11,
@@ -204,7 +215,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "2.5 ГБ",
         lastVersion = "1.24",
-        lastVersionDescription = "Новый сезон"
+        lastVersionDescription = "Новый сезон",
+        apkUrl = apkUrl(11)
     ),
     AppInfo(
         id = 12,
@@ -222,7 +234,8 @@ val allApps = listOf(
         isInstalled = false,
         size = "600 МБ",
         lastVersion = "23.0",
-        lastVersionDescription = "Новые герои"
+        lastVersionDescription = "Новые герои",
+        apkUrl = apkUrl(12)
     )
 )
 

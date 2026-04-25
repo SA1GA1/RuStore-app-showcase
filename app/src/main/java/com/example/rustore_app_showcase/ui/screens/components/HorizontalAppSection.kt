@@ -21,11 +21,7 @@ fun HorizontalAppSection(
     if (apps.size <= 3) {
         Column(modifier = Modifier.fillMaxWidth()) {
             apps.forEach { app ->
-                AppCard(
-                    app = app,
-                    onClick = { onAppClick(app.id) },
-                    onInstallClick = { }
-                )
+                AppCard(app = app, onClick = { onAppClick(app.id) })
             }
         }
     } else {
@@ -34,11 +30,7 @@ fun HorizontalAppSection(
             items(chunkedApps) { columnApps ->
                 Column(modifier = Modifier.width(330.dp)) {
                     columnApps.forEach { app ->
-                        AppCard(
-                            app = app,
-                            onClick = { onAppClick(app.id) },
-                            onInstallClick = { }
-                        )
+                        AppCard(app = app, onClick = { onAppClick(app.id) })
                     }
                 }
             }
@@ -50,11 +42,11 @@ fun HorizontalAppSection(
 @Composable
 fun HorizontalAppSectionPreview() {
     RuStoreappshowcaseTheme {
-        val mockApps = List(6) { index ->
+        val mockApps = List(4) { index ->
             AppInfo(
                 id = index,
                 title = "Приложение $index",
-                shortDescription = "Описание приложения $index",
+                shortDescription = "Описание $index",
                 fullDescription = "",
                 category = "Категория",
                 rating = 4.5,
@@ -65,15 +57,11 @@ fun HorizontalAppSectionPreview() {
                 iconUrl = "",
                 screenshots = emptyList(),
                 isInstalled = false,
-                size = "50 MB",
+                size = "50 МБ",
                 lastVersion = "1.0",
                 lastVersionDescription = ""
             )
         }
-
-        HorizontalAppSection(
-            apps = mockApps,
-            onAppClick = {}
-        )
+        HorizontalAppSection(apps = mockApps, onAppClick = {})
     }
 }

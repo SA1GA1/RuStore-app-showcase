@@ -19,5 +19,6 @@ data class AppInfo(
     val isInstalled: Boolean,
     val size: String,
     val lastVersion: String,
-    val lastVersionDescription: String
+    val lastVersionDescription: String,
+    val apkUrl: String = ""
 )

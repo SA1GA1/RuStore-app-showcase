@@ -93,6 +93,14 @@ fun Application.module() {
             call.respondBytes(generateIconPng(letter, color), contentType = ContentType.Image.PNG)
         }
 
+        // APK приложения — для demo возвращает 404; положи реальный .apk в resources/apks/{id}.apk
+        get("/apk/{appId}") {
+            call.respondText(
+                "APK for this app is not available in demo mode",
+                status = HttpStatusCode.NotFound
+            )
+        }
+
         // скриншот приложения — генерируется динамически
         get("/screenshots/{appId}/{index}") {
             val appId = call.parameters["appId"]?.toIntOrNull()

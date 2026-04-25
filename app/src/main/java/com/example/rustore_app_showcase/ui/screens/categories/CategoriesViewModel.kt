@@ -1,6 +1,5 @@
 package com.example.rustore_app_showcase.ui.screens.categories
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rustore_app_showcase.data.repository.AppRepository
@@ -16,13 +15,25 @@ class CategoriesViewModel(
     private val _categories = MutableStateFlow<List<CategoryInfo>>(emptyList())
     val categories = _categories.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     init {
-        loadCategories()
+        loadCategories(showRefreshing = false)
     }
 
-    private fun loadCategories() {
+    fun refresh() {
+        loadCategories(showRefreshing = true)
+    }
+
+    private fun loadCategories(showRefreshing: Boolean) {
         viewModelScope.launch {
-            _categories.value = repository.getCategories()
+            if (showRefreshing) _isRefreshing.value = true
+            try {
+                _categories.value = repository.getCategories()
+            } finally {
+                _isRefreshing.value = false
+            }
         }
     }
 }

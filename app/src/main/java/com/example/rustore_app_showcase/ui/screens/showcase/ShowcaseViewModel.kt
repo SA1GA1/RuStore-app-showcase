@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.rustore_app_showcase.data.repository.AppRepository
 import com.example.rustore_app_showcase.shared.AppInfo
 import com.example.rustore_app_showcase.shared.CategoryInfo
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.async
 
 class ShowcaseViewModel(
     private val repository: AppRepository,
@@ -23,17 +23,28 @@ class ShowcaseViewModel(
     private val _categoriesState = MutableStateFlow<List<CategoryInfo>>(emptyList())
     val categoriesState = _categoriesState.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     init {
-        loadData()
+        loadData(showRefreshing = false)
     }
 
-    private fun loadData() {
-        viewModelScope.launch {
-            val appsDeferred = async { repository.getApps(selectedCategory) }
-            val catsDeferred = async { repository.getCategories() }
+    fun refresh() {
+        loadData(showRefreshing = true)
+    }
 
-            _appsState.value = appsDeferred.await()
-            _categoriesState.value = catsDeferred.await()
+    private fun loadData(showRefreshing: Boolean) {
+        viewModelScope.launch {
+            if (showRefreshing) _isRefreshing.value = true
+            try {
+                val appsDeferred = async { repository.getApps(selectedCategory) }
+                val catsDeferred = async { repository.getCategories() }
+                _appsState.value = appsDeferred.await()
+                _categoriesState.value = catsDeferred.await()
+            } finally {
+                _isRefreshing.value = false
+            }
         }
     }
 }

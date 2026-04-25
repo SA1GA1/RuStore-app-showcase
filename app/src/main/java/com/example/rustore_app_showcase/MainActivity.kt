@@ -25,8 +25,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.rustore_app_showcase.ui.navigation.AppNavGraph
 import com.example.rustore_app_showcase.ui.navigation.Screen
+import com.example.rustore_app_showcase.ui.theme.MainColor
 import com.example.rustore_app_showcase.ui.theme.RuStoreappshowcaseTheme
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.NavigationBarItemDefaults
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,14 @@ class MainActivity : ComponentActivity() {
                                 windowInsets = WindowInsets.navigationBars,
                                 tonalElevation = 0.dp
                             ) {
+                                val navItemColors = NavigationBarItemDefaults.colors(
+                                    selectedIconColor = MainColor,
+                                    selectedTextColor = MainColor,
+                                    indicatorColor = MainColor.copy(alpha = 0.12f),
+                                    unselectedIconColor = Color.Gray,
+                                    unselectedTextColor = Color.Gray
+                                )
+
                                 // Витрина
                                 NavigationBarItem(
                                     selected = currentRoute == Screen.Showcase.route,
@@ -70,7 +80,8 @@ class MainActivity : ComponentActivity() {
                                             contentDescription = null,
                                             modifier = Modifier.size(24.dp)
                                         )
-                                    }
+                                    },
+                                    colors = navItemColors
                                 )
 
                                 // Категории
@@ -94,7 +105,8 @@ class MainActivity : ComponentActivity() {
                                             contentDescription = null,
                                             modifier = Modifier.size(24.dp)
                                         )
-                                    }
+                                    },
+                                    colors = navItemColors
                                 )
                             }
                         }

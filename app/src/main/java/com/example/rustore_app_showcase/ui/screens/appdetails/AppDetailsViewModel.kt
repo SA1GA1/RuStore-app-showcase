@@ -9,23 +9,35 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class AppDetailsViewModel (
+class AppDetailsViewModel(
     private val repository: AppRepository,
     savedStateHandle: SavedStateHandle,
-): ViewModel() {
+) : ViewModel() {
 
     private val appId: Int = checkNotNull(savedStateHandle["appID"])
 
     private val _state = MutableStateFlow<AppInfo?>(null)
     val state = _state.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     init {
-        loadDetails()
+        loadDetails(showRefreshing = false)
     }
 
-    private fun loadDetails() {
+    fun refresh() {
+        loadDetails(showRefreshing = true)
+    }
+
+    private fun loadDetails(showRefreshing: Boolean) {
         viewModelScope.launch {
-            _state.value = repository.getAppDetails(appId)
+            if (showRefreshing) _isRefreshing.value = true
+            try {
+                _state.value = repository.getAppDetails(appId)
+            } finally {
+                _isRefreshing.value = false
+            }
         }
     }
 }

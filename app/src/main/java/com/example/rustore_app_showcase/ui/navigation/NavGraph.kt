@@ -31,7 +31,7 @@ fun AppNavGraph (navController: NavHostController) {
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onContinueClick = {
-                    navController.navigate(Screen.Showcase.route) {
+                    navController.navigate(Screen.Showcase.createRoute(null)) {
                         popUpTo(Screen.Onboarding.route) {
                             inclusive = true
                         }
@@ -84,9 +84,6 @@ fun AppNavGraph (navController: NavHostController) {
                 },
                 onScreenshotClick = { screenshotIndex ->
                     navController.navigate(Screen.Screenshots.createRoute(appID, screenshotIndex))
-                },
-                onInstallClick = {
-                    println("Нажата кнопка установки")
                 }
             )
         }
