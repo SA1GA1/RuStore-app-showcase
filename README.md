@@ -4,7 +4,7 @@
 
 ## Демо
 
-<video src="Screen_recording.webm" controls width="320"></video>
+<video src="Video.mp4" controls width="320"></video>
 
 ## Архитектура
 
