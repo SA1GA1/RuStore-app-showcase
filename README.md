@@ -4,7 +4,7 @@
 
 ## Демо
 
-<video src="Video.mp4" controls width="320"></video>
+<video src="https://github.com/user-attachments/assets/2bdeadd6-0d15-4906-bc23-8409b85cdb98" controls width="320"></video>
 
 ## Архитектура
 
