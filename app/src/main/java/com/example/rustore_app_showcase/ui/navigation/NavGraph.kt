@@ -27,7 +27,6 @@ fun AppNavGraph (navController: NavHostController) {
         startDestination = if (onboardingComplete) Screen.Showcase.route else Screen.Onboarding.route
     ) {
 
-        // отвечает за ONboarding, осуществляет логику, чтобы он не показывался более одного раза
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onContinueClick = {

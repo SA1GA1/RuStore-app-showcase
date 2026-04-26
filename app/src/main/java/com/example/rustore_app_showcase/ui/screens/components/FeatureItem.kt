@@ -24,7 +24,6 @@ fun FeatureItem(
         modifier = modifier.padding(vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхняя метка
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,
@@ -32,7 +31,6 @@ fun FeatureItem(
             fontSize = 10.sp
         )
 
-        // Основное значение
         Text(
             text = value,
             fontWeight = FontWeight.Bold,
@@ -41,7 +39,6 @@ fun FeatureItem(
             maxLines = 1
         )
 
-        // Опциональная подпись снизу
         if (subValue != null) {
             Text(
                 text = subValue,

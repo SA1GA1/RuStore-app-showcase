@@ -38,7 +38,6 @@ fun Application.module() {
 
         staticResources("/static", "static")
 
-        // запрос на все приложения
         get("/apps") {
             val category = call.parameters["category"]
             val apps = if (category != null) {
@@ -49,7 +48,6 @@ fun Application.module() {
             call.respond(apps)
         }
 
-        // запрос на категории
         get("/categories") {
             val apps = repository.getApps()
             val categories = repository.getCategories().map { category ->
@@ -59,7 +57,6 @@ fun Application.module() {
             call.respond(categories)
         }
 
-        // конкретное приложение
         get("/apps/{id}") {
             val id = call.parameters["id"]?.toIntOrNull()
             val app = repository.getApps().find { it.id == id }
@@ -70,7 +67,6 @@ fun Application.module() {
             }
         }
 
-        // иконка категории — генерируется динамически
         get("/category-icons/{categoryId}") {
             val categoryId = call.parameters["categoryId"]?.toIntOrNull()
                 ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
@@ -81,7 +77,6 @@ fun Application.module() {
             call.respondBytes(generateCategoryIconPng(letter, color), contentType = ContentType.Image.PNG)
         }
 
-        // иконка приложения — генерируется динамически
         get("/icons/{appId}") {
             val appId = call.parameters["appId"]?.toIntOrNull()
                 ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
@@ -93,7 +88,6 @@ fun Application.module() {
             call.respondBytes(generateIconPng(letter, color), contentType = ContentType.Image.PNG)
         }
 
-        // APK приложения — для demo возвращает 404; положи реальный .apk в resources/apks/{id}.apk
         get("/apk/{appId}") {
             call.respondText(
                 "APK for this app is not available in demo mode",
@@ -101,7 +95,6 @@ fun Application.module() {
             )
         }
 
-        // скриншот приложения — генерируется динамически
         get("/screenshots/{appId}/{index}") {
             val appId = call.parameters["appId"]?.toIntOrNull()
                 ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)

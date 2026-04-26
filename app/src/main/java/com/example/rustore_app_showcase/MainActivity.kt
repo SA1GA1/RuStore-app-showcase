@@ -41,7 +41,9 @@ class MainActivity : ComponentActivity() {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
 
-                val showBottomBar = currentRoute in listOf(Screen.Showcase.route, Screen.Categories.route)
+                val selectedCategory = navBackStackEntry?.arguments?.getString("categoryName")
+                val showBottomBar = (currentRoute == Screen.Showcase.route && selectedCategory == null) ||
+                    currentRoute == Screen.Categories.route
 
                 Scaffold(
                     bottomBar = {
@@ -59,7 +61,6 @@ class MainActivity : ComponentActivity() {
                                     unselectedTextColor = Color.Gray
                                 )
 
-                                // Витрина
                                 NavigationBarItem(
                                     selected = currentRoute == Screen.Showcase.route,
                                     onClick = {
@@ -84,7 +85,6 @@ class MainActivity : ComponentActivity() {
                                     colors = navItemColors
                                 )
 
-                                // Категории
                                 NavigationBarItem(
                                     selected = currentRoute == Screen.Categories.route,
                                     onClick = {

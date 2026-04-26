@@ -148,7 +148,6 @@ fun AppDetailsContent(
             )
         }
 
-        // Шапка
         Row(modifier = Modifier.padding(16.dp)) {
             AsyncImage(
                 model = app.iconUrl,
@@ -182,7 +181,6 @@ fun AppDetailsContent(
             }
         }
 
-        // Кнопка установки
         val isInstalled = installState == InstallManager.State.Installed
         val isBusy = installState == InstallManager.State.Downloading ||
             installState == InstallManager.State.Installing
@@ -230,7 +228,6 @@ fun AppDetailsContent(
             }
         }
 
-        // Статистика
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -272,7 +269,6 @@ fun AppDetailsContent(
             }
         }
 
-        // Скриншоты
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -291,7 +287,6 @@ fun AppDetailsContent(
             }
         }
 
-        // О приложении
         Text(
             text = "О приложении",
             style = MaterialTheme.typography.titleLarge,
@@ -312,7 +307,6 @@ fun AppDetailsContent(
             }
         }
 
-        // Что нового
         Text(
             text = "Что нового",
             style = MaterialTheme.typography.titleLarge,
@@ -335,7 +329,6 @@ fun AppDetailsContent(
             }
         }
 
-        // Информация
         Text(
             text = "Информация",
             style = MaterialTheme.typography.titleLarge,

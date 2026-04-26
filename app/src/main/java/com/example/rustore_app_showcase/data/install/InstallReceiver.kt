@@ -14,7 +14,6 @@ class InstallReceiver : BroadcastReceiver() {
 
         when (status) {
             PackageInstaller.STATUS_PENDING_USER_ACTION -> {
-                // Системный диалог подтверждения установки
                 @Suppress("DEPRECATION")
                 val confirmIntent = intent.getParcelableExtra<Intent>(Intent.EXTRA_INTENT)
                 confirmIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

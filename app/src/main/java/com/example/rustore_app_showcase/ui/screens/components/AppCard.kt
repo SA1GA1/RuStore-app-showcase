@@ -184,7 +184,6 @@ fun AppCardPreview() {
             lastVersion = "1.0",
             lastVersionDescription = ""
         )
-        // Preview без InstallManager — параметр со значением по умолчанию
         Card(
             modifier = Modifier
                 .fillMaxWidth()

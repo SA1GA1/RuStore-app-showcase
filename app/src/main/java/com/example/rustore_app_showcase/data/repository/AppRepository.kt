@@ -6,7 +6,6 @@ import com.example.rustore_app_showcase.shared.CategoryInfo
 
 class AppRepository(private val api: RuStoreApi) {
 
-    // Получить список приложений (или всех приложений определенной категории)
     suspend fun getApps(category: String? = null): List<AppInfo> {
         return try {
             api.getApps(category)
@@ -16,7 +15,6 @@ class AppRepository(private val api: RuStoreApi) {
         }
     }
 
-    // Получить список категорий
     suspend fun getCategories(): List<CategoryInfo> {
         return try {
             api.getCategories()
@@ -26,7 +24,6 @@ class AppRepository(private val api: RuStoreApi) {
         }
     }
 
-    // Получить данные приложения по ID
     suspend fun getAppDetails(id: Int): AppInfo? {
         return try {
             api.getAppById(id)
